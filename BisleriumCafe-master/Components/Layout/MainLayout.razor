@@ -1,0 +1,52 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavManager
+
+@using BisleriumCafe.Model
+@using BisleriumCafe.Services
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    @if (_globalState.CurrentUser != null)
+    {
+    <MudAppBar Elevation="1" Color="Color.Tertiary">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudSpacer />
+        <MudIconButton Href="/login" Icon="@Icons.Material.Filled.Logout" Color="Color.Inherit" @onclick="LogoutHandler"/>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@open" Elevation="1">
+        <NavMenu Username="@_globalState.CurrentUser.Username" UserRole="@_globalState.CurrentUser.Role"/>
+    </MudDrawer>
+    }
+    <MudMainContent Class="pt-16 px-16">
+        <MudContainer Class="mt-6">
+            <CascadingValue Value="@_globalState">
+                @Body
+            </CascadingValue>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool open = false;
+
+    void ToggleDrawer()
+    {
+        open = !open;
+    }
+
+    private GlobalState _globalState = new();
+
+    protected override void OnInitialized()
+    {
+        UsersService.SeedUsers();
+    }
+
+    private void LogoutHandler()
+    {
+        _globalState.CurrentUser = null;
+        NavManager.NavigateTo("/login");
+    }
+}
