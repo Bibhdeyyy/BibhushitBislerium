@@ -2,46 +2,6 @@
 
 namespace BisleriumCafe.Model
 {
-    /*public class Utils
-    {
-        public static string GetBasePath()
-        {
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
-        }
-        public static string GetAppUsersFilePath()
-        {
-            return Path.Combine(GetBasePath(), "Users.json");
-        }
-        public static string GetCoffeeFilePath()
-        {
-            return Path.Combine(GetBasePath(), "Coffee.json");
-        }
-        public static string GetAddinsFilePath()
-        {
-            return Path.Combine(GetBasePath(), "Addin.json");
-        }
-        public static string GetMemberFilePath()
-        {
-            return Path.Combine(GetBasePath(), "Member.json");
-        }
-
-        public static string GetOrderFilePath()
-        {
-            return Path.Combine(GetBasePath(), "Order.json");
-        }
-        public static string GetStaffPassword()
-        {
-            List<Users> users = UsersService.GetAllUsers();
-            Users user = users.FirstOrDefault(x => x.role == "admin");
-            return user.password;
-        }
-        public static string GetAdminPassword()
-        {
-            List<Users> users = UsersService.GetAllUsers();
-            Users user = users.FirstOrDefault(x => x.role == "staff");
-            return user.password;
-        }
-    }*/
     public static class Utils
     {
 
@@ -112,6 +72,10 @@ namespace BisleriumCafe.Model
         public static string GetAppOrdersFilePath()
         {
             return Path.Combine(GetAppDirectoryPath(), "orders.json");
+        }
+        public static string GetMemberFilePath()
+        {
+            return Path.Combine(DataFolderPath, "member.json");
         }
     }
 }
