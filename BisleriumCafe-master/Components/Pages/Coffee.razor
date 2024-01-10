@@ -2,44 +2,40 @@
 
 @using BisleriumCafe.Model
 @using BisleriumCafe.Services
+@using BisleriumCafe.Shared
 
 
 
-<nav class="navbar navbar-light bg-light justify-content-between">
-    <h1 class="navbar-brand mb-0 h1">Coffee</h1>
-    <button class="btn btn-primary" type="button" @onclick="OpenAddCoffeeDialog">
-        <span class="oi oi-plus" /> Add
-    </button>
-</nav>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Coffee Name</th>
-            <th>Coffee Price</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var coffee in _coffees)
-        {
-            <tr>
-                <td>@coffee.ID</td>
-                <td>@coffee.CoffeeName</td>
-                <td>@coffee.CoffeePrice</td>
-                <td>
-                    <button class="btn btn-outline-danger" type="button" @onclick="()=>OpenDeleteCoffeeDialog(coffee)">
-                        <span class="oi oi-delete" /> Delete
-                    </button>
-                    <button class="btn btn-outline-danger" type="button" @onclick="()=>OpenUpdateCoffeeDialog(coffee)">
-                        <span class="oi oi-edit" /> Edit
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div style="display:flex; justify-content:space-between">
+    <p><h1 />Coffees</p>
+    <MudButton Variant="Variant.Filled" Color="Color.Tertiary" OnClick="OpenAddCoffeeDialog">Add</MudButton>
+</div>
+<br />
+<MudTable Items="@_coffees">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>Coffee Name</MudTh>
+        <MudTh>Coffee Price</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <span>@context.ID</span>
+        </MudTd>
+        <MudTd>
+            <span>@context.CoffeeName.ToString()</span>
+        </MudTd>
+        <MudTd>
+            <span>@context.CoffeePrice.ToString()</span>
+        </MudTd>
+        <MudTd>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info" OnClick="()=>OpenUpdateCoffeeDialog(context)">Edit</MudButton>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="()=>OpenDeleteCoffeeDialog(context)">Delete</MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
 
 @if (_showAddCoffeeDialog)
 {
@@ -48,7 +44,7 @@
             <div class="form-floating">
                 <input type="text" class="form-control username" @bind="_coffeeName" placeholder="Coffee Name" />
                 <label for="floatingInput">Coffee Name</label>
-            </div>
+            </div> <br/>
             <div class="form-floating mb-3">
                 <input type="number" class="form-control password" @bind="_coffeePrice" placeholder="Coffee Price" />
                 <label for="floatingPassword">Coffee Price</label>
@@ -69,7 +65,7 @@
             <div class="form-floating">
                 <input type="text" class="form-control username" @bind="_coffeeName" placeholder="Coffee Name" />
                 <label for="floatingInput">Coffee Name</label>
-            </div>
+            </div><br/>
             <div class="form-floating mb-3">
                 <input type="number" class="form-control password" @bind="_coffeePrice" placeholder="Coffee Price" />
                 <label for="floatingPassword">Coffee Price</label>
@@ -85,7 +81,7 @@
 @if (_showDeleteCoffeeDialog)
 {
     <ModalDialog Title="Delete Coffee" OnClose="@OnDeleteCoffeeDialogClose" OkLabel="Confirm">
-        <p>Are you sure you want to delete <strong>@_deleteCoffee.CoffeeName</strong> coffee and it''s data?</p>
+        <p>Are you sure you want to delete <strong>@_deleteCoffee.CoffeeName</strong> coffee data?</p>
         @if (!string.IsNullOrEmpty(_deleteCoffeeErrorMessage))
         {
             <AlertMessage Type="danger" Message="@_deleteCoffeeErrorMessage" />
@@ -276,4 +272,3 @@
         }
     }
 }
-

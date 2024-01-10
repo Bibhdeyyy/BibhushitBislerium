@@ -1,42 +1,38 @@
 @page "/addins"
 @using BisleriumCafe.Model
 @using BisleriumCafe.Services
+@using BisleriumCafe.Shared
 
-<nav class="navbar navbar-light bg-light justify-content-between">
-    <h1 class="navbar-brand mb-0 h1">AddIns</h1>
-    <button class="btn btn-primary" type="button" @onclick="OpenAddAddInDialog">
-        <span class="oi oi-plus" /> Add
-    </button>
-</nav>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>AddIn Name</th>
-            <th>AddIn Price</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var addIn in _addIns)
-        {
-            <tr>
-                <td>@addIn.ID</td>
-                <td>@addIn.AddInName</td>
-                <td>@addIn.AddInPrice</td>
-                <td>
-                    <button class="btn btn-outline-danger" type="button" @onclick="()=>OpenDeleteAddInDialog(addIn)">
-                        <span class="oi oi-delete" /> Delete
-                    </button>
-                    <button class="btn btn-outline-danger" type="button" @onclick="()=>OpenUpdateAddInDialog(addIn)">
-                        <span class="oi oi-edit" /> Edit
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div style="display:flex; justify-content:space-between">
+    <p><h1 />Add Ins</p>
+    <MudButton Variant="Variant.Filled" Color="Color.Tertiary" OnClick="OpenAddAddInDialog">Add</MudButton>
+</div>
+<br />
+<MudTable Items="@_addIns">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>AddIn Name</MudTh>
+        <MudTh>AddIn Price</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <span>@context.ID</span>
+        </MudTd>
+        <MudTd>
+            <span>@context.AddInName.ToString()</span>
+        </MudTd>
+        <MudTd>
+            <span>@context.AddInPrice.ToString()</span>
+        </MudTd>
+        <MudTd>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info" OnClick="()=>OpenUpdateAddInDialog(context)">Edit</MudButton>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="()=>OpenDeleteAddInDialog(context)">Delete</MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
 
 @if (_showAddAddInDialog)
 {
@@ -45,7 +41,7 @@
             <div class="form-floating">
                 <input type="text" class="form-control username" @bind="_addInName" placeholder="AddIn Name" />
                 <label for="floatingInput">AddIn Name</label>
-            </div>
+            </div><br/>
             <div class="form-floating mb-3">
                 <input type="number" class="form-control password" @bind="_addInPrice" placeholder="AddIn Price" />
                 <label for="floatingPassword">AddIn Price</label>
@@ -268,4 +264,3 @@
         }
     }
 }
-

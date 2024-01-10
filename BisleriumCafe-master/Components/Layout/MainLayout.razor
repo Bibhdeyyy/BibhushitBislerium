@@ -14,7 +14,13 @@
     <MudAppBar Elevation="1" Color="Color.Tertiary">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
         <MudSpacer />
-        <MudIconButton Href="/login" Icon="@Icons.Material.Filled.Logout" Color="Color.Inherit" @onclick="LogoutHandler"/>
+        <div>
+                <MudIconButton Href="/login" Color="Color.Inherit" @onclick="LogoutHandler">
+                  <MudIcon Icon="@Icons.Material.Filled.Logout" />
+                    <span>Sign out</span>
+                </MudIconButton>
+ 
+        </div>
     </MudAppBar>
     <MudDrawer @bind-Open="@open" Elevation="1">
         <NavMenu Username="@_globalState.CurrentUser.Username" UserRole="@_globalState.CurrentUser.Role"/>

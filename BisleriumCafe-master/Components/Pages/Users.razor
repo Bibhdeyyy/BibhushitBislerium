@@ -2,8 +2,14 @@
 
 @using BisleriumCafe.Model
 @using BisleriumCafe.Services
+@using BisleriumCafe.Shared
 
 
+<div style="display:flex; justify-content:space-between">
+    <p style="margin-left:250px;"><h1><b>Users</b></h1></p>t
+    <MudButton Variant="Variant.Filled" Color="Color.Tertiary" OnClick="OpenAddUserDialog">Add</MudButton>
+</div>
+<br />
 <MudTable Items="@_users">
     <HeaderContent>
         <MudTh>User Name</MudTh>
@@ -29,7 +35,7 @@
             }
         </MudTd>
         <MudTd>
-            delete button baki
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="()=>OpenDeleteUserDialog(context)">Delete</MudButton>
         </MudTd>
     </RowTemplate>
 </MudTable>
@@ -39,50 +45,6 @@
 
 
 
-
-
-
-
-<nav class="navbar navbar-light bg-light justfy-content-between">
-    <h1 class="navbar-brand mb-0 h1">Users</h1>
-    <button class="btn btn-primary" type="button" @onclick="OpenAddUserDialog">
-        <span class="oi oi-plus" /> Add
-    </button>
-</nav>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Username</th>
-            <th>Role</th>
-            <th>Created At</th>
-            <th>CreatedBy</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in _users)
-        {
-            <tr>
-                <td>@user.Username</td>
-                <td>@user.Role.ToString()</td>
-                <td>@user.CreatedAt.ToString("MMM dd, yyyy h:mm tt")</td>
-                <td>
-                    @{
-                        var creator = UsersService.GetById(user.CreatedBy);
-                        <span>@(creator == null ? "Unknown" : creator.Username)</span>
-                    }
-                </td>
-                <td>
-                    <button disabled="@(_globalState.CurrentUser != null ? _globalState.CurrentUser.Id == user.Id : false)"
-                            class="btn btn-outline-danger" type="button" @onclick="()=>OpenDeleteUserDialog(user)">
-                        <span class="oi oi-delete" /> Delete
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
 @if (_showAddUserDialog)
 {
     <ModalDialog Title="Add User" OnClose="@OnAddUserDialogClose" OkLabel="Add">
@@ -90,15 +52,15 @@
             <div class="form-floating">
                 <input type="text" class="form-control username" @bind="_username" placeholder="Username" />
                 <label for="floatingInput">Username</label>
-            </div>
+            </div><br/>
             <div class="form-floating mb-3">
                 <input type="password" class="form-control password" @bind="_password" placeholder="Password" />
                 <label for="floatingPassword">Password</label>
             </div>
             <div class="form-check">
-                <input id="userRole" type="radio" class="form-check-input" name="role" value="@Role.User"
-                       @onchange="RoleChangeHandler" checked="@(_role == Role.User)">
-                <label class="form-check-label" for="userRole">@Role.User</label>
+                <input id="userRole" type="radio" class="form-check-input" name="role" value="@Role.Staff"
+                       @onchange="RoleChangeHandler" checked="@(_role == Role.Staff)">
+                <label class="form-check-label" for="userRole">@Role.Staff</label>
             </div>
             <div class="form-check">
                 <input id="adminRole" type="radio" class="form-check-input" name="role" value="@Role.Admin"
@@ -147,7 +109,7 @@
         _showAddUserDialog = true;
         _username = "";
         _password = "";
-        _role = Role.User;
+        _role = Role.Staff;
     }
     private void OnAddUserDialogClose(bool isCancel)
     {
