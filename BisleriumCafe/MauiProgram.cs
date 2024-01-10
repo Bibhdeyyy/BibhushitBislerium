@@ -3,6 +3,7 @@ using MudBlazor.Services;
 
 using BisleriumCafe.Services;
 
+using QuestPDF.Infrastructure;
 
 
 namespace BisleriumCafe
@@ -11,6 +12,7 @@ namespace BisleriumCafe
     {
         public static MauiApp CreateMauiApp()
         {
+            QuestPDF.Settings.License = LicenseType.Community;
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
