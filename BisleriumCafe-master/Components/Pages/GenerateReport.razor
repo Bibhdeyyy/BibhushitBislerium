@@ -1,23 +1,24 @@
-@page "/generatereport"
+﻿@page "/generatereport"
 
 @using BisleriumCafe.Services
 @using BisleriumCafe.Model
 
 @inject OrderService orderService;
 
-
+<h1><strong>📝Generate Report</strong></h1>
+<br />
 <div class="container mt-5">
     <!-- Section 1: Daily Report -->
     <div class="row">
         <div class="col-md-6">
-            <h2>Daily Report Generator</h2>
+            <h3>Daily Report</h3>
             <div class="form-group">
                 <label for="dailyDate">Select Date:</label>
                 <input type="date" class="form-control" id="dailyDate" @bind="day" @onclick ="() => { dailyReportGenerated = false; }">
             </div>
-            <button class="btn btn-primary mt-4" @onclick="() => OnGenerateDailyReportClicked()">Generate Daily Report</button>
+            <button style="background-color:green;" class="btn btn-primary mt-4" @onclick="() => OnGenerateDailyReportClicked()">Generate Daily Report</button>
         </div>
-    </div>
+    </div><br/>
     @if (dailyReportGenerated)
     {
         <AlertMessage Type="success" Message="Report has been generated" />
@@ -25,14 +26,15 @@
     <!-- Section 2: Monthly Report -->
     <div class="row my-5">
         <div class="col-md-6">
-            <h2>Monthly Report Generator</h2>
+            <h3>Monthly Report</h3>
             <div class="form-group">
                 <label for="monthlyMonth">Select Month:</label>
                 <input type="month" class="form-control" id="monthlyMonth" @bind="month" @onclick ="() => { monthlyReportGenerated = false; }">
             </div>
-            <button class="btn btn-primary mt-4" @onclick="() => OnGenerateMonthlyReportClicked()">Generate Monthly Report</button>
+            <button style="background-color:green;" class="btn btn-primary mt-4" @onclick="() => OnGenerateMonthlyReportClicked()">Generate Monthly Report</button>
         </div>
     </div>
+        
     @if (monthlyReportGenerated)
     {
         <AlertMessage Type="success" Message="Report has been generated"/>
