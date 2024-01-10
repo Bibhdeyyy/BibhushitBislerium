@@ -91,7 +91,7 @@ namespace BisleriumCafe.Model
 
             return Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "bruhdeep"
+                "Data"
             );
         }
 

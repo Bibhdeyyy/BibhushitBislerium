@@ -16,7 +16,7 @@
         <MudTh>Role</MudTh>
         <MudTh>Created At</MudTh>
         <MudTh>Created By</MudTh>
-        <MudTh>Delete</MudTh>
+        <MudTh>Action</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>
@@ -35,7 +35,7 @@
             }
         </MudTd>
         <MudTd>
-            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="()=>OpenDeleteUserDialog(context)">Delete</MudButton>
+            <MudButton Disabled="@(_globalState.CurrentUser != null ? _globalState.CurrentUser.Id == context.Id : false)" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="()=>OpenDeleteUserDialog(context)">Delete</MudButton>
         </MudTd>
     </RowTemplate>
 </MudTable>
@@ -78,7 +78,7 @@
 @if (_showDeleteUserDialog)
 {
     <ModalDialog Title="Delete User" OnClose="@OnDeleteUserDialogClose" OkLabel="Confirm">
-        <p>Are you sure you want to delete <strong>@_deleteUser.Username</strong> user and their data?</p>
+        <p>Are you sure you want to delete <strong>@_deleteUser.Username</strong> user data?</p>
         @if (!string.IsNullOrEmpty(_deleteUserErrorMessage))
         {
             <AlertMessage Type="danger" Message="@_deleteUserErrorMessage" />
