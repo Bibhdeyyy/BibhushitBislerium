@@ -76,7 +76,7 @@ namespace BisleriumCafe.Services
 
             }
 
-            if (orderCountForMonth >= 22)
+            if (orderCountForMonth >= 26) //not counting saturdays
                 return true;
             return false;
         }

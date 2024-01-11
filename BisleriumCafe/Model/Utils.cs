@@ -24,7 +24,7 @@ namespace BisleriumCafe.Model
                 algorithm
             );
         }
-        // Yesle k garekko
+        
         public static bool VerifyHash(string input, string hashString)
         {
             string[] segments = hashString.Split(_segmentDelimiter);
